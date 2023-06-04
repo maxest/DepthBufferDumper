@@ -173,8 +173,8 @@ public class DepthBufferDumper : MonoBehaviour
 		//	float[,] depthBuffer = Utils.LoadImage_RawFloat("Assets/depth_buffer.dat");
 		//	Vector3[,] normalsBuffer = Utils.LoadImage_Normals("Assets/normals_buffer.png");
 		//	Vector4[,] posBuffer = Utils.LoadImage_RawFloat4("Assets/pos_buffer.dat");
-		//	height = depthBuffer.GetLength(0);
-		//	width = depthBuffer.GetLength(1)
+		//	width = depthBuffer.GetLength(0);
+		//	height = depthBuffer.GetLength(1);
 		}
 	}
 }

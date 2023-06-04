@@ -27,13 +27,13 @@ public class Utils
 
 		int width = br.ReadInt32();
 		int height = br.ReadInt32();
-		float[,] data = new float[height, width];
+		float[,] data = new float[width, height];
 
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
 			{
-				data[y, x] = br.ReadSingle();
+				data[x, y] = br.ReadSingle();
 			}
 		}
 
@@ -50,7 +50,7 @@ public class Utils
 
 		int width = br.ReadInt32();
 		int height = br.ReadInt32();
-		Vector4[,] data = new Vector4[height, width];
+		Vector4[,] data = new Vector4[width, height];
 
 		for (int y = 0; y < height; y++)
 		{
@@ -63,7 +63,7 @@ public class Utils
 				v.z = br.ReadSingle();
 				v.w = br.ReadSingle();
 
-				data[y, x] = v;
+				data[x, y] = v;
 			}
 		}
 
@@ -76,7 +76,7 @@ public class Utils
 	static public Vector3[,] LoadImage_Normals(string path)
 	{
 		Texture2D texture = LoadImage(path);
-		Vector3[,] data = new Vector3[texture.height, texture.width];
+		Vector3[,] data = new Vector3[texture.width, texture.height];
 
 		for (int y = 0; y < texture.height; y++)
 		{
@@ -90,7 +90,7 @@ public class Utils
 				v.z = 2.0f * v.z - 1.0f;
 				v.Normalize();
 
-				data[y, x] = v;
+				data[x, y] = v;
 			}
 		}
 
@@ -99,8 +99,8 @@ public class Utils
 
 	static public T SampleImage_Clamp<T>(T[,] data, int x, int y)
 	{
-		int height = data.GetLength(0);
-		int width = data.GetLength(1);
+		int width = data.GetLength(0);
+		int height = data.GetLength(1);
 
 		if (x < 0)
 			x = 0;
@@ -112,6 +112,6 @@ public class Utils
 		if (y >= height)
 			y = height - 1;
 
-		return data[y, x];
+		return data[x, y];
 	}
 }
