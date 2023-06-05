@@ -29,7 +29,7 @@ public class DepthBufferDumper : MonoBehaviour
 			RenderTexture.active = renderTexture;
 			Texture2D destTexture = new Texture2D(width, height, TextureFormat.RGBA32, false);
 			destTexture.ReadPixels(new Rect(0.0f, 0.0f, width, height), 0, 0);
-			Utils.SaveImage("Assets/color_buffer.png", destTexture);
+			Utils.SaveImage("Assets/dump_color_buffer.png", destTexture);
 
 			RenderTexture.ReleaseTemporary(renderTexture);
 			Destroy(destTexture);
@@ -77,7 +77,7 @@ public class DepthBufferDumper : MonoBehaviour
 			NativeArray<float> destTexture_depth_rawData = destTexture_depth.GetRawTextureData<float>();
 			// dump raw data
 			{
-				FileStream fs = File.Open("Assets/depth_buffer.dat", FileMode.Create);
+				FileStream fs = File.Open("Assets/dump_depth_buffer.dat", FileMode.Create);
 				BinaryWriter bw = new BinaryWriter(fs);
 
 				bw.Write(width);
@@ -105,13 +105,13 @@ public class DepthBufferDumper : MonoBehaviour
 				}
 
 				destTexture_depth_rgba32.SetPixels32(rgba);
-				File.WriteAllBytes("Assets/depth_buffer.png", destTexture_depth_rgba32.EncodeToPNG());
+				File.WriteAllBytes("Assets/dump_depth_buffer.png", destTexture_depth_rgba32.EncodeToPNG());
 			}
 
 			RenderTexture.active = renderTexture_normals;
 			Texture2D destTexture_normals = new Texture2D(width, height, TextureFormat.RGBA32, false, true);
 			destTexture_normals.ReadPixels(new Rect(0.0f, 0.0f, width, height), 0, 0);
-			Utils.SaveImage("Assets/normals_buffer.png", destTexture_normals);
+			Utils.SaveImage("Assets/dump_normals_buffer.png", destTexture_normals);
 
 			RenderTexture.active = renderTexture_pos;
 			Texture2D destTexture_pos = new Texture2D(width, height, TextureFormat.RGBAFloat, false, true);
@@ -120,7 +120,7 @@ public class DepthBufferDumper : MonoBehaviour
 			NativeArray<float> destTexture_pos_rawData = destTexture_pos.GetRawTextureData<float>();
 			// dump raw data
 			{
-				FileStream fs = File.Open("Assets/pos_buffer.dat", FileMode.Create);
+				FileStream fs = File.Open("Assets/dump_pos_buffer.dat", FileMode.Create);
 				BinaryWriter bw = new BinaryWriter(fs);
 
 				bw.Write(width);
@@ -157,7 +157,7 @@ public class DepthBufferDumper : MonoBehaviour
 				}
 
 				destTexture_pos_rgba32.SetPixels32(rgba);
-				File.WriteAllBytes("Assets/pos_buffer.png", destTexture_pos_rgba32.EncodeToPNG());
+				File.WriteAllBytes("Assets/dump_pos_buffer.png", destTexture_pos_rgba32.EncodeToPNG());
 			}
 
 			RenderTexture.ReleaseTemporary(renderTexture_depth);
@@ -170,9 +170,9 @@ public class DepthBufferDumper : MonoBehaviour
 			Destroy(destTexture_pos_rgba32);
 
 			// how to load:
-		//	float[,] depthBuffer = Utils.LoadImage_RawFloat("Assets/depth_buffer.dat");
-		//	Vector3[,] normalsBuffer = Utils.LoadImage_Normals("Assets/normals_buffer.png");
-		//	Vector4[,] posBuffer = Utils.LoadImage_RawFloat4("Assets/pos_buffer.dat");
+		//	float[,] depthBuffer = Utils.LoadImage_RawFloat("Assets/dump_depth_buffer.dat");
+		//	Vector3[,] normalsBuffer = Utils.LoadImage_Normals("Assets/dump_normals_buffer.png");
+		//	Vector4[,] posBuffer = Utils.LoadImage_RawFloat4("Assets/dump_pos_buffer.dat");
 		//	width = depthBuffer.GetLength(0);
 		//	height = depthBuffer.GetLength(1);
 		}
